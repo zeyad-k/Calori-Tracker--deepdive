@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 function CalorieRecordEdit(props) {
   const Default_Value = {
@@ -8,6 +8,17 @@ function CalorieRecordEdit(props) {
     calories: 0,
   };
   const [mealRecord, setMealRecord] = useState(Default_Value);
+
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  useEffect(() => {
+    setIsFormValid(
+      mealRecord.date &&
+        mealRecord.meal &&
+        mealRecord.content &&
+        mealRecord.calories >= 0
+    );
+  }, [mealRecord]);
 
   const onDateChange = (event) => {
     setMealRecord({ ...mealRecord, date: event.target.value });
@@ -77,9 +88,12 @@ function CalorieRecordEdit(props) {
           value={mealRecord.calories}
           onChange={onCaloriesChange}
           className={mealRecord.calories < 0 ? styles.error : ""}
+          min={0}
         />
         <div className={styles.footer}>
-          <button type="submit">Add Record</button>
+          <button disabled={!isFormValid} type="submit">
+            Add Record
+          </button>
           <button
             className={styles.secondary}
             onClick={cancelRecordButtonHandler}

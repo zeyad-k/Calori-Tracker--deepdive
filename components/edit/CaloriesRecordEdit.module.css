@@ -33,10 +33,10 @@
   box-sizing: border-box;
 }
 
-.error {
+input[type="number"].error {
   color: maroon;
   border: 1px solid maroon;
-  background-color: var(--theme-color-dark);
+  background-color: var(--theme-color-light);
 }
 
 .footer {
@@ -59,6 +59,12 @@
   background-color: var(--theme-background-light);
   border: 1px solid var(--theme-color-normal);
   color: var(--theme-color-normal);
+}
+.footer button:disabled {
+  background-color: lightgray;
+  border: 0;
+  color: gray;
+  pointer-events: none;
 }
 
 @media (min-width: 786px) {

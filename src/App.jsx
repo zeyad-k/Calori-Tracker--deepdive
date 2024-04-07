@@ -100,8 +100,6 @@ function App() {
         <button className={styles["open-modal-btn"]} onClick={handleOpenModal}>
           Track Food
         </button>
-        <Counter />
-        <Counter />
       </div>
     </>
   );
