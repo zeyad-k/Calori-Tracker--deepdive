@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Counter from "../components/Counter";
 import CalorieRecordEdit from "../components/edit/CaloriesRecordEdit";
@@ -7,42 +7,42 @@ import ListingSection from "../components/ListingSection";
 import { getDateFormString } from "../helpers";
 
 import Modal from "react-modal";
-
-const DEFAULT_RECORDS = [
-  {
-    id: 1,
-    date: new Date(2023, 2, 6),
-    meal: "Breakfast",
-    content: "Eggs + Beans",
-    calories: 340,
-  },
-  {
-    id: 2,
-    date: new Date(2023, 3, 7),
-    meal: "Launch",
-    content: "Chicken",
-    calories: 480,
-  },
-  {
-    id: 3,
-    date: new Date(2024, 3, 10),
-    meal: "Dinner",
-    content: "Pizza",
-    calories: 500,
-  },
-  {
-    id: 4,
-    date: new Date(2023, 12, 12),
-    meal: "snakes",
-    content: "Beans",
-    calories: 200,
-  },
-];
+const LOCAL_STORAGE_KEY = "calorieRecords";
 
 function App() {
-  const [records, setRecords] = useState(DEFAULT_RECORDS);
-  const [nextId, setNextId] = useState(5);
+  const [records, setRecords] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  function save() {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(records));
+  }
+  function loadRecords() {
+    const storageRecords = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storageRecords != null && storageRecords !== "undefined") {
+      // setRecords(JSON.parse(storageRecords)).map((record) => ({
+      //   ...record,
+      //   date: new Date(record.date),
+      //   calories: Number(record.calories),
+      // }));
+      const parsedRecords = JSON.parse(storageRecords).map((record) => ({
+        ...record,
+        date: new Date(record.date),
+        calories: Number(record.calories),
+      }));
+
+      setRecords(parsedRecords);
+    } else {
+      setRecords([]);
+    }
+  }
+
+  useEffect(() => {
+    if (!records) {
+      loadRecords();
+    } else {
+      save();
+    }
+  }, [records]);
 
   const modalStyles = {
     content: {
@@ -73,10 +73,9 @@ function App() {
     const formattedRecord = {
       ...record,
       date: getDateFormString(record.date),
-      id: nextId,
+      id: crypto.randomUUID(),
     };
 
-    setNextId((lastVal) => lastVal + 1);
     setRecords((prevRecords) => [formattedRecord, ...prevRecords]);
 
     handleCloseModal();
@@ -96,7 +95,7 @@ function App() {
             onCancel={handleCloseModal}
           />
         </Modal>
-        <ListingSection allRecords={records} />
+        {records && <ListingSection allRecords={records} />}
         <button className={styles["open-modal-btn"]} onClick={handleOpenModal}>
           Track Food
         </button>
