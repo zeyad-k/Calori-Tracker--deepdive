@@ -16,7 +16,7 @@ function CalorieRecordEdit(props) {
       mealRecord.date &&
         mealRecord.meal &&
         mealRecord.content &&
-        mealRecord.calories >= 0
+        mealRecord.calories > 0
     );
   }, [mealRecord]);
 
@@ -85,7 +85,7 @@ function CalorieRecordEdit(props) {
           type="number"
           id="calories"
           name="calories"
-          value={mealRecord.calories}
+          value={Number(mealRecord.calories)}
           onChange={onCaloriesChange}
           className={mealRecord.calories < 0 ? styles.error : ""}
           min={0}

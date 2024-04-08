@@ -21,9 +21,13 @@ function CalorieRecorder(props) {
     );
   }
   useEffect(() => {
-    props.addCalories((prevTotal) => prevTotal + props.calories);
+    props.addCalories(
+      (prevTotal) => Number(prevTotal) + Number(props.calories)
+    );
     return () => {
-      props.addCalories((prevTotal) => prevTotal - props.calories);
+      props.addCalories(
+        (prevTotal) => Number(prevTotal) - Number(props.calories)
+      );
     };
   }, []);
 
