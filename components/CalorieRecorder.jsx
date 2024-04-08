@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "./CalorieRecorder.module.css";
 import CalorieRecordDate from "./CalorieRecordDate";
@@ -12,7 +12,7 @@ function CalorieRecorder(props) {
     </>
   );
 
-  if (props.calories <= 0) {
+  if (props.calories < 0) {
     recordContent = (
       <>
         <li></li>
@@ -20,6 +20,13 @@ function CalorieRecorder(props) {
       </>
     );
   }
+  useEffect(() => {
+    props.addCalories((prevTotal) => prevTotal + props.calories);
+    return () => {
+      props.addCalories((prevTotal) => prevTotal - props.calories);
+    };
+  }, []);
+
   return (
     <ul className={styles.record}>
       <li>
