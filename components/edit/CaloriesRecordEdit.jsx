@@ -88,7 +88,6 @@ function CalorieRecordEdit(props) {
           value={Number(mealRecord.calories)}
           onChange={onCaloriesChange}
           className={mealRecord.calories < 0 ? styles.error : ""}
-          min={0}
         />
         <div className={styles.footer}>
           <button disabled={!isFormValid} type="submit">
