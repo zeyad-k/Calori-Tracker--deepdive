@@ -15,10 +15,7 @@
   margin-bottom: 10px;
 }
 
-.form input[type="text"],
-.form input[type="number"],
-.form select,
-.form input[type="date"] {
+.form-input {
   background-color: var(--theme-background-light);
   color: var(--theme-color-normal);
   border: ipx solid var(--theme-color-normal);
@@ -33,7 +30,7 @@
   box-sizing: border-box;
 }
 
-input[type="number"].error {
+.error {
   color: maroon;
   border: 1px solid maroon;
   background-color: var(--theme-color-light);

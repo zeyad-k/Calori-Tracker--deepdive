@@ -12,14 +12,14 @@ function CalorieRecorder(props) {
     </>
   );
 
-  if (props.calories < 0) {
-    recordContent = (
-      <>
-        <li></li>
-        <li>Invalid Content</li>
-      </>
-    );
-  }
+  // if (props.calories < 0) {
+  //   recordContent = (
+  //     <>
+  //       <li></li>
+  //       <li>Invalid Content</li>
+  //     </>
+  //   );
+  // }
   useEffect(() => {
     props.addCalories(
       (prevTotal) => Number(prevTotal) + Number(props.calories)
