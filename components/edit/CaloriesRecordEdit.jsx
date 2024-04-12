@@ -111,16 +111,14 @@ function CalorieRecordEdit(props) {
       {/* <h2>Calorie Record Edit</h2> */}
       <form className={styles.form} onSubmit={onSubmitHandler}>
         <p className={styles.warning}>You Spent {totalCalories} Calories</p>
-        <label htmlFor="date">Date:</label>
-        <input
-          type="date"
-          id="date"
-          name="date"
-          value={currentDateString}
+
+        <FormInput
           onChange={onDateChange}
-          className={`${styles["form-input"]} ${
-            !isDateValid ? styles.error : ""
-          }`}
+          value={currentDateString}
+          type="date"
+          label="Date"
+          id="date"
+          isValid={isDateValid}
         />
 
         <label htmlFor="meal">Meal:</label>
@@ -137,6 +135,7 @@ function CalorieRecordEdit(props) {
           <option value="Dinner">Dinner</option>
           <option value="Snack">Snack</option>
         </select>
+
         <FormInput
           type="text"
           label="Content"
