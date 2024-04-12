@@ -1,6 +1,5 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
-import { getDateFormString } from "../../helpers";
 import { AppContext } from "../../src/AppContext";
 
 const Default_Value = {
@@ -86,7 +85,7 @@ function CalorieRecordEdit(props) {
     dispatchFn({
       type: "UPDATE_FIELD",
       key: "calories",
-      value: event.target.value,
+      value: Number(event.target.value),
     });
   };
 

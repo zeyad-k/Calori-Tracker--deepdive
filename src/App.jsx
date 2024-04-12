@@ -26,7 +26,7 @@ function App() {
       const parsedRecords = JSON.parse(storageRecords).map((record) => ({
         ...record,
         date: new Date(record.date),
-        calories: Number(record.calories),
+        calories: record.calories,
       }));
 
       setRecords(parsedRecords);

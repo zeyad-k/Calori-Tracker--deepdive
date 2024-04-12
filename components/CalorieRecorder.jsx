@@ -15,10 +15,15 @@ function CalorieRecorder(props) {
   );
 
   useEffect(() => {
-    addCalories((prevTotal) => Number(prevTotal) + Number(props.calories));
+    addCalories((prevTotal) => prevTotal + props.calories);
     return () => {
-      addCalories((prevTotal) => Number(prevTotal) - Number(props.calories));
+      addCalories((prevTotal) => prevTotal - props.calories);
     };
+    // useEffect(() => {
+    //   addCalories((prevTotal) => Number(prevTotal) + Number(props.calories));
+    //   return () => {
+    //     addCalories((prevTotal) => Number(prevTotal) - Number(props.calories));
+    //   };
   }, []);
 
   return (
