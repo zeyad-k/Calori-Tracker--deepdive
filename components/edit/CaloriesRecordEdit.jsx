@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer, useContext } from "react";
+import { useState, useEffect, useReducer, useContext, useRef } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { AppContext } from "../../src/AppContext";
 
@@ -52,12 +52,18 @@ function CalorieRecordEdit(props) {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formState, dispatchFn] = useReducer(formReducer, Default_Value);
+
+  const contentRef = useRef();
+
   const {
     content: { valid: isContentValid },
     calories: { valid: isCaloriesValid },
   } = formState;
 
   useEffect(() => {
+    if (!isContentValid) {
+      contentRef.current.focus();
+    }
     setIsFormValid(isDateValid && isContentValid && isCaloriesValid);
   }, [isDateValid, isContentValid, isCaloriesValid]);
 
@@ -145,6 +151,7 @@ function CalorieRecordEdit(props) {
           type="text"
           id="content"
           name="content"
+          ref={contentRef}
           value={formState.content.value}
           onChange={onContentChange}
           className={`${styles["form-input"]} ${
