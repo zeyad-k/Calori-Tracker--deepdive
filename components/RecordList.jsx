@@ -3,7 +3,7 @@ import CalorieRecorder from "./CalorieRecorder";
 import styles from "./RecordList.module.css";
 
 function RecordList(props) {
-  const [totalCalories, setTotalCalories] = useState(0);
+  // const [totalCalories, setTotalCalories] = useState(0);
 
   const ResultsElement = props.records?.length ? (
     <ul className={styles["record-list"]}>
@@ -14,7 +14,7 @@ function RecordList(props) {
             meal={record.meal}
             content={record.content}
             calories={record.calories}
-            addCalories={setTotalCalories}
+            addCalories={props.setTotalCalories}
           />
         </li>
       ))}
@@ -26,7 +26,7 @@ function RecordList(props) {
   return (
     <>
       {ResultsElement}
-      <label htmlFor="">Total Calories: {totalCalories} </label>
+      <label htmlFor="">Total Calories: {props.totalCalories} </label>
     </>
   );
 }

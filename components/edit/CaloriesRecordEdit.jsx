@@ -123,6 +123,9 @@ function CalorieRecordEdit(props) {
     <div>
       {/* <h2>Calorie Record Edit</h2> */}
       <form className={styles.form} onSubmit={onSubmitHandler}>
+        <p className={styles.warning}>
+          You Spent {props.totalCalories} Calories
+        </p>
         <label htmlFor="date">Date:</label>
         <input
           type="date"

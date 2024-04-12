@@ -13,6 +13,7 @@ function App() {
   const [records, setRecords] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date()); // Added import for useState
+  const [totalCalories, setTotalCalories] = useState(0);
 
   function save() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(records));
@@ -97,6 +98,7 @@ function App() {
             onCancel={handleCloseModal}
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
+            totalCalories={totalCalories}
           />
         </Modal>
         {records && (
@@ -104,6 +106,8 @@ function App() {
             allRecords={records}
             currentDate={currentDate}
             setCurrentDate={setCurrentDate}
+            totalCalories={totalCalories}
+            setTotalCalories={setTotalCalories}
           />
         )}
         <button className={styles["open-modal-btn"]} onClick={handleOpenModal}>
