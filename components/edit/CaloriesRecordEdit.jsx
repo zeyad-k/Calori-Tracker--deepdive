@@ -1,6 +1,7 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { getDateFormString } from "../../helpers";
+import AppContext from "../../src/app-context";
 
 const Default_Value = {
   date: { value: "", valid: false },
@@ -43,6 +44,7 @@ function formReducer(state, action) {
 }
 
 function CalorieRecordEdit(props) {
+  const { currentDate, setCurrentDate, totalCalories } = useContext(AppContext);
   // const [mealRecord, setMealRecord] = useState(Default_Value);
   const [isFormValid, setIsFormValid] = useState(false);
   const [formState, dispatchFn] = useReducer(
@@ -51,8 +53,8 @@ function CalorieRecordEdit(props) {
     (initialState) => ({
       ...initialState,
       date: {
-        value: props.currentDate.toISOString().split("T")[0],
-        valid: !!props.currentDate,
+        value: currentDate.toISOString().split("T")[0],
+        valid: !!currentDate,
       },
     })
   );
@@ -72,7 +74,7 @@ function CalorieRecordEdit(props) {
       key: "date",
       value: event.target.value,
     });
-    props.setCurrentDate(getDateFormString(event.target.value));
+    setCurrentDate(getDateFormString(event.target.value));
   };
 
   const onMealChange = (event) => {
@@ -123,9 +125,7 @@ function CalorieRecordEdit(props) {
     <div>
       {/* <h2>Calorie Record Edit</h2> */}
       <form className={styles.form} onSubmit={onSubmitHandler}>
-        <p className={styles.warning}>
-          You Spent {props.totalCalories} Calories
-        </p>
+        <p className={styles.warning}>You Spent {totalCalories} Calories</p>
         <label htmlFor="date">Date:</label>
         <input
           type="date"

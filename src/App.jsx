@@ -5,6 +5,7 @@ import CalorieRecordEdit from "../components/edit/CaloriesRecordEdit";
 import styles from "./App.module.css";
 import ListingSection from "../components/ListingSection";
 import { getDateFormString } from "../helpers";
+import AppContext from "./app-context";
 
 import Modal from "react-modal";
 const LOCAL_STORAGE_KEY = "calorieRecords";
@@ -87,29 +88,40 @@ function App() {
     <>
       <div className="App">
         <h1 className={styles.title}>Calorie Tracker</h1>
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={handleCloseModal}
-          contentLabel="Calorie Record Modal"
-          style={modalStyles}
+        <AppContext.Provider
+          value={{
+            currentDate,
+            setCurrentDate,
+            totalCalories,
+            setTotalCalories,
+          }}
         >
-          <CalorieRecordEdit
-            onFormSubmit={formSubmitHandler}
-            onCancel={handleCloseModal}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            totalCalories={totalCalories}
-          />
-        </Modal>
-        {records && (
-          <ListingSection
-            allRecords={records}
-            currentDate={currentDate}
-            setCurrentDate={setCurrentDate}
-            totalCalories={totalCalories}
-            setTotalCalories={setTotalCalories}
-          />
-        )}
+          {" "}
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={handleCloseModal}
+            contentLabel="Calorie Record Modal"
+            style={modalStyles}
+          >
+            <CalorieRecordEdit
+              onFormSubmit={formSubmitHandler}
+              onCancel={handleCloseModal}
+              // currentDate={currentDate}
+              // setCurrentDate={setCurrentDate}
+              // totalCalories={totalCalories}
+            />
+          </Modal>
+          {records && (
+            <ListingSection
+              allRecords={records}
+              currentDate={currentDate}
+              setCurrentDate={setCurrentDate}
+              totalCalories={totalCalories}
+              setTotalCalories={setTotalCalories}
+            />
+          )}
+        </AppContext.Provider>
+
         <button className={styles["open-modal-btn"]} onClick={handleOpenModal}>
           Track Food
         </button>

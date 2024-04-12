@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import CalorieRecorder from "./CalorieRecorder";
 import styles from "./RecordList.module.css";
+import { useContext } from "react";
+import AppContext from "../src/app-context";
 
 function RecordList(props) {
-  // const [totalCalories, setTotalCalories] = useState(0);
-
+  const { totalCalories, setTotalCalories } = useContext(AppContext); // Added import for useState
   const ResultsElement = props.records?.length ? (
     <ul className={styles["record-list"]}>
       {props.records.map((record) => (
@@ -14,7 +15,7 @@ function RecordList(props) {
             meal={record.meal}
             content={record.content}
             calories={record.calories}
-            addCalories={props.setTotalCalories}
+            // addCalories={setTotalCalories}
           />
         </li>
       ))}
@@ -26,7 +27,7 @@ function RecordList(props) {
   return (
     <>
       {ResultsElement}
-      <label htmlFor="">Total Calories: {props.totalCalories} </label>
+      <label htmlFor="">Total Calories: {totalCalories} </label>
     </>
   );
 }

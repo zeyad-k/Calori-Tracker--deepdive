@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 
 import styles from "./CalorieRecorder.module.css";
 import CalorieRecordDate from "./CalorieRecordDate";
 import StyledRecordCell from "./StyledRecordCell";
+import AppContext from "../src/app-context";
 
 function CalorieRecorder(props) {
+  const { setTotalCalories: addCalories } = useContext(AppContext);
   let recordContent = (
     <>
       <li>{props.meal}</li>
@@ -12,22 +14,10 @@ function CalorieRecorder(props) {
     </>
   );
 
-  // if (props.calories < 0) {
-  //   recordContent = (
-  //     <>
-  //       <li></li>
-  //       <li>Invalid Content</li>
-  //     </>
-  //   );
-  // }
   useEffect(() => {
-    props.addCalories(
-      (prevTotal) => Number(prevTotal) + Number(props.calories)
-    );
+    addCalories((prevTotal) => Number(prevTotal) + Number(props.calories));
     return () => {
-      props.addCalories(
-        (prevTotal) => Number(prevTotal) - Number(props.calories)
-      );
+      addCalories((prevTotal) => Number(prevTotal) - Number(props.calories));
     };
   }, []);
 

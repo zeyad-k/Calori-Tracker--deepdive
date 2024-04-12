@@ -1,18 +1,12 @@
 import RecordList from "./RecordList";
 import styles from "./ListingSection.module.css"; // Corrected import
-import { useState } from "react"; // Added import for useState
+import { useContext } from "react"; // Added import for useState
 import { getDateFormString } from "../helpers";
+import AppContext from "../src/app-context";
 
 function ListingSection(props) {
-  const {
-    allRecords,
-    currentDate,
-    setCurrentDate,
-    totalCalories,
-    setTotalCalories,
-  } = props;
-  // const [currentDate, setCurrentDate] = useState(new Date()); // Added import for useState
-  //  filter records based on date
+  const { allRecords } = props;
+  const { currentDate, setCurrentDate } = useContext(AppContext);
 
   const dateFilter = (record) => {
     return (
@@ -34,15 +28,10 @@ function ListingSection(props) {
         type="date"
         id="listingDate"
         className={styles["listing-picker-input"]} // Added class to input
-        // value={currentDate.toISOString().split("T")[0]} // Added value attribute
         value={currentDate.toISOString().split("T")[0]} // Added value attribute
         onChange={dateChangeHandler} // Added onChange event handler
       />
-      <RecordList
-        records={allRecords.filter(dateFilter)}
-        totalCalories={totalCalories}
-        setTotalCalories={setTotalCalories}
-      />
+      <RecordList records={allRecords.filter(dateFilter)} />
     </>
   );
 }
