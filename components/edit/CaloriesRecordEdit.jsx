@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer, useContext, useRef } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { AppContext } from "../../src/AppContext";
+import FormInput from "../common/FormInput";
 
 const Default_Value = {
   meal: true,
@@ -136,7 +137,25 @@ function CalorieRecordEdit(props) {
           <option value="Dinner">Dinner</option>
           <option value="Snack">Snack</option>
         </select>
-        <label htmlFor="content">Content:</label>
+        <FormInput
+          type="text"
+          label="Content"
+          id="content"
+          onBlur={onContentBlur}
+          isValid={isContentValid}
+          ref={contentRef}
+        />
+
+        <FormInput
+          type="number"
+          label="Calories"
+          id="calories"
+          onBlur={onCaloriesBlur}
+          isValid={isCaloriesValid}
+          ref={caloriesRef}
+        />
+
+        {/* <label htmlFor="content">Content:</label>
         <input
           type="text"
           id="content"
@@ -147,8 +166,9 @@ function CalorieRecordEdit(props) {
           className={`${styles["form-input"]} ${
             !isContentValid ? styles.error : ""
           }`}
-        />
-        <label htmlFor="calories">Calories:</label>
+        /> */}
+
+        {/* <label htmlFor="calories">Calories:</label>
         <input
           type="number"
           id="calories"
@@ -160,7 +180,7 @@ function CalorieRecordEdit(props) {
           }`}
           ref={caloriesRef}
           // min={0}
-        />
+        /> */}
         <div className={styles.footer}>
           <button disabled={!isFormValid} type="submit">
             Add Record
