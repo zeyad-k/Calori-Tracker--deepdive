@@ -1,10 +1,9 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { getDateFormString } from "../../helpers";
-import AppContext from "../../src/app-context";
+import { AppContext } from "../../src/AppContext";
 
 const Default_Value = {
-  date: { value: "", valid: false },
   meal: { value: "Breakfast", valid: true },
   content: { value: "", valid: false },
   calories: { value: "0", valid: true },
@@ -44,22 +43,17 @@ function formReducer(state, action) {
 }
 
 function CalorieRecordEdit(props) {
-  const { currentDate, setCurrentDate, totalCalories } = useContext(AppContext);
-  // const [mealRecord, setMealRecord] = useState(Default_Value);
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [formState, dispatchFn] = useReducer(
-    formReducer,
-    Default_Value,
-    (initialState) => ({
-      ...initialState,
-      date: {
-        value: currentDate.toISOString().split("T")[0],
-        valid: !!currentDate,
-      },
-    })
-  );
   const {
-    date: { valid: isDateValid },
+    isDateValid,
+    currentDate,
+    currentDateString,
+    setCurrentDate,
+    totalCalories,
+  } = useContext(AppContext);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const [formState, dispatchFn] = useReducer(formReducer, Default_Value);
+  const {
     content: { valid: isContentValid },
     calories: { valid: isCaloriesValid },
   } = formState;
@@ -69,12 +63,7 @@ function CalorieRecordEdit(props) {
   }, [isDateValid, isContentValid, isCaloriesValid]);
 
   const onDateChange = (event) => {
-    dispatchFn({
-      type: "UPDATE_FIELD",
-      key: "date",
-      value: event.target.value,
-    });
-    setCurrentDate(getDateFormString(event.target.value));
+    setCurrentDate(event.target.value);
   };
 
   const onMealChange = (event) => {
@@ -103,12 +92,13 @@ function CalorieRecordEdit(props) {
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
-    props.onFormSubmit(
-      Object.keys(formState).reduce((agg, cur) => {
+    props.onFormSubmit({
+      date: currentDate,
+      ...Object.keys(formState).reduce((agg, cur) => {
         agg[cur] = formState[cur].value;
         return agg;
-      }, {})
-    );
+      }, {}),
+    });
     dispatchFn({
       action: "RESET",
     });
@@ -131,7 +121,7 @@ function CalorieRecordEdit(props) {
           type="date"
           id="date"
           name="date"
-          value={formState.date.value}
+          value={currentDateString}
           onChange={onDateChange}
           className={`${styles["form-input"]} ${
             !isDateValid ? styles.error : ""
