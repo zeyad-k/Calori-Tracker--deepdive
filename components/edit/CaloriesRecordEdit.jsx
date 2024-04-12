@@ -1,5 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
+import { getDateFormString } from "../../helpers";
 
 const Default_Value = {
   date: { value: "", valid: false },
@@ -44,7 +45,17 @@ function formReducer(state, action) {
 function CalorieRecordEdit(props) {
   // const [mealRecord, setMealRecord] = useState(Default_Value);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [formState, dispatchFn] = useReducer(formReducer, Default_Value);
+  const [formState, dispatchFn] = useReducer(
+    formReducer,
+    Default_Value,
+    (initialState) => ({
+      ...initialState,
+      date: {
+        value: props.currentDate.toISOString().split("T")[0],
+        valid: !!props.currentDate,
+      },
+    })
+  );
   const {
     date: { valid: isDateValid },
     content: { valid: isContentValid },
@@ -61,6 +72,7 @@ function CalorieRecordEdit(props) {
       key: "date",
       value: event.target.value,
     });
+    props.setCurrentDate(getDateFormString(event.target.value));
   };
 
   const onMealChange = (event) => {

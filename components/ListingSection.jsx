@@ -4,8 +4,8 @@ import { useState } from "react"; // Added import for useState
 import { getDateFormString } from "../helpers";
 
 function ListingSection(props) {
-  const { allRecords } = props;
-  const [currentDate, setCurrentDate] = useState(new Date()); // Added import for useState
+  const { allRecords, currentDate, setCurrentDate } = props;
+  // const [currentDate, setCurrentDate] = useState(new Date()); // Added import for useState
   //  filter records based on date
 
   const dateFilter = (record) => {
@@ -28,6 +28,7 @@ function ListingSection(props) {
         type="date"
         id="listingDate"
         className={styles["listing-picker-input"]} // Added class to input
+        // value={currentDate.toISOString().split("T")[0]} // Added value attribute
         value={currentDate.toISOString().split("T")[0]} // Added value attribute
         onChange={dateChangeHandler} // Added onChange event handler
       />
