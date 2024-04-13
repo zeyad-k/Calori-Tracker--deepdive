@@ -5,6 +5,8 @@ import styles from "./App.module.css";
 import ListingSection from "../components/ListingSection";
 import AppContextProvider from "./AppContext";
 import Modal from "react-modal";
+// import
+
 const LOCAL_STORAGE_KEY = "calorieRecords";
 
 function App() {
