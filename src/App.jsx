@@ -1,14 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LandingPage, TrackPage } from "../pages";
+import { LandingPage, PageLayout, TrackPage } from "../pages";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/track",
-    element: <TrackPage />,
+    element: <PageLayout />,
+    children: [
+      { path: "/", element: <LandingPage /> },
+      { path: "/track", element: <TrackPage /> },
+    ],
   },
 ]);
 
