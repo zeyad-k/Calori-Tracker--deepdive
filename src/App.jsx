@@ -10,10 +10,15 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
+    // path: "/main",
     element: <PageLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "", element: <LandingPage /> },
+      {
+        // path: "",
+        index: true,
+        element: <LandingPage />,
+      },
       { path: "track", element: <TrackPage /> },
       { path: "track/:recordId", element: <DetailPage /> },
     ],
