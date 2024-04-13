@@ -1,4 +1,11 @@
-import { useState, useEffect, useReducer, useContext, useRef } from "react";
+import {
+  useState,
+  useEffect,
+  useReducer,
+  useContext,
+  useRef,
+  useCallback,
+} from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { AppContext } from "../../src/AppContext";
 import FormInput from "../common/FormInput";
@@ -103,9 +110,9 @@ function CalorieRecordEdit(props) {
     });
   };
 
-  const cancelRecordButtonHandler = () => {
-    props.onCancel();
-  };
+  const cancelRecordButtonHandler = useCallback(() => {
+    isFormValid && props.onCancel();
+  }, [isFormValid]);
 
   return (
     <div>
