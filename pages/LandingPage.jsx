@@ -5,9 +5,6 @@ export function LandingPage() {
     <>
       <h1>Welcome to the Landing Page</h1>
       <p>
-        to get started, <a href="/track">Start tracking</a>
-      </p>
-      <p>
         to get started, <Link to="/track">Start tracking</Link>
       </p>
     </>

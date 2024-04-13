@@ -13,9 +13,9 @@ const router = createBrowserRouter([
     element: <PageLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: "/", element: <LandingPage /> },
-      { path: "/track", element: <TrackPage /> },
-      { path: "/track/:recordId", element: <DetailPage /> },
+      { path: "", element: <LandingPage /> },
+      { path: "track", element: <TrackPage /> },
+      { path: "track/:recordId", element: <DetailPage /> },
     ],
   },
 ]);
