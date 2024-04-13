@@ -2,6 +2,7 @@ import { useState, useEffect, useReducer, useContext, useRef } from "react";
 import styles from "./CaloriesRecordEdit.module.css";
 import { AppContext } from "../../src/AppContext";
 import FormInput from "../common/FormInput";
+import Button from "../common/Button";
 
 const Default_Value = {
   meal: true,
@@ -153,43 +154,18 @@ function CalorieRecordEdit(props) {
           ref={caloriesRef}
         />
 
-        {/* <label htmlFor="content">Content:</label>
-        <input
-          type="text"
-          id="content"
-          name="content"
-          ref={contentRef}
-          // value={formState.content.value}
-          onBlur={onContentBlur}
-          className={`${styles["form-input"]} ${
-            !isContentValid ? styles.error : ""
-          }`}
-        /> */}
-
-        {/* <label htmlFor="calories">Calories:</label>
-        <input
-          type="number"
-          id="calories"
-          name="calories"
-          // value={formState.calories.value}
-          onBlur={onCaloriesBlur}
-          className={`${styles["form-input"]} ${
-            formState.calories.value < 0 ? styles.error : ""
-          }`}
-          ref={caloriesRef}
-          // min={0}
-        /> */}
         <div className={styles.footer}>
-          <button disabled={!isFormValid} type="submit">
+          <Button variant="primary" disabled={!isFormValid}>
             Add Record
-          </button>
-          <button
-            className={styles.secondary}
+          </Button>
+
+          <Button
+            variant="secondary"
             onClick={cancelRecordButtonHandler}
             type="button"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>
