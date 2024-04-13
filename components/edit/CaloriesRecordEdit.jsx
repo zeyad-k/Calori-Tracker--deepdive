@@ -121,20 +121,19 @@ function CalorieRecordEdit(props) {
           isValid={isDateValid}
         />
 
-        <label htmlFor="meal">Meal:</label>
-        <select
-          name="meal"
+        <FormInput
+          type="select"
+          label="Meal"
           id="meal"
-          // value={formState.meal.value}
           onBlur={onMealBlur}
-          className={`${styles["form-input"]}`}
           ref={mealRef}
+          isValid
         >
           <option value="Breakfast">Breakfast</option>
           <option value="Launch">Launch</option>
           <option value="Dinner">Dinner</option>
           <option value="Snack">Snack</option>
-        </select>
+        </FormInput>
 
         <FormInput
           type="text"
